@@ -1,13 +1,20 @@
 <div class="recipe recipe-list-item">
 
   <div class="recipe-cover">
-    <img
-      src="https://www.sabornamesa.com.br/media/k2/items/cache/9243c4e6c1fa1938e50087fb954581e0_XL.jpg"
-      alt="temporario">
+    <a href="{% url 'recipes:recipe' recipe.id %}">
+      <img src="https://www.sabornamesa.com.br/media/k2/items/cache/9243c4e6c1fa1938e50087fb954581e0_XL.jpg" alt="temporario">
+    </a>
   </div>
 
   <div class="recipe-title-container">
-    <h2 class="recipe-title">{{recipe.title}}</h2>
+    {% if is_datail_page is not True %}
+      <h2 class="recipe-title">
+        <a href="{% url 'recipes:recipe' recipe.id %}">
+        {{recipe.title}}</a>
+      </h2>
+    {% else%}
+      <h2 class="recipe-title">{{recipe.title}}</h2>
+    {% endif%}
   </div>
 
   <div class="recipe-author">
@@ -55,7 +62,7 @@
 
   {% if is_datail_page is not True %}
     <footer class="recipe-footer">
-      <a class="recipe-read-more button button-dark button-full-width" href = "recipes/{{2}}">
+      <a class="recipe-read-more button button-dark button-full-width" href="{% url 'recipes:recipe' recipe.id %}">
         <i class="fas fa-eye"></i>
         <span>ver mais...</span>
       </a>
