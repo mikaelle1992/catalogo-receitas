@@ -153,6 +153,7 @@ h1, h2, h3, h4, h5, h6 {
  }
  .recipe-list-item{
     max-width:64rem;
+    height: fit-content;
  }
  .recipe-list-item:hover{
     transform: scale(1.03);
@@ -233,3 +234,13 @@ h1, h2, h3, h4, h5, h6 {
  .main-footer a:hover {
      filter: brightness(.8);
  }
+
+
+ .main-content-detail .recipe-list-item{
+    max-width:84rem;
+    margin: 0 auto;
+}
+.main-content-detail .recipe-list-item:hover{
+    transform: scale(1);
+    box-shadow: -5px 5px 15px rgba(0,0,0, 0.2);
+    }
