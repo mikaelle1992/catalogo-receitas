@@ -40,12 +40,9 @@
   </div>
 
   <div class="recipe-content">
-    {% if is_datail_page %}
-      <p>{{recipe.preparation_steps| linebreaksbr}}</p>
-    {% else%}
+    {% if is_datail_page is not True %}
       <p>{{recipe.description}}</p>
     {% endif%}
-
   </div>
 
   <div class="recipe-meta-container">
@@ -72,5 +69,15 @@
         <span>ver mais...</span>
       </a>
     </footer>
-  {% endif%}
+  {% endif%}  
+  
+  {% if is_datail_page is True %}
+    <div class="preparation-steps">
+      {% if recipe.preparation_steps_is_html is True %}
+        {{ recipe.preparation_steps|safe}}
+      {% else%}
+        {{ recipe.preparation_steps|linebreaksbr}}
+      {% endif%}
+    </div>
+  {% endif%}  
 </div>
