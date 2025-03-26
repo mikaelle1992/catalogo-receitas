@@ -31,3 +31,7 @@ def category(request, category_id):
         'recipes':recipes,
         'title': f'{recipes[0].category.name} - Category'
         })
+
+def search(request):
+    
+    return render(request, "recipes/pages/search.html", context={})
