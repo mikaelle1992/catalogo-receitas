@@ -252,13 +252,24 @@ h1, h2, h3, h4, h5, h6 {
     padding: var(--spacing-gutter-medium);
     padding-top: 2rem;
     }
-
-
-    
+  
 .preparation-steps ol, 
 .preparation-steps ul {
     padding: 0 2rem;
     margin: 2rem
+}
+
+/* generico */
+.center{
+    text-align: center;
+}
+.m-y{
+ margin: 0 var(--spacing-gutter-medium);
+}
+
+.m-x{
+ margin: var(--spacing-gutter-medium) 0;
+    
 }
 
 
