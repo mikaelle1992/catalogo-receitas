@@ -294,6 +294,20 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* Messages */
+.messages-container{
+    display: flex;
+    flex-flow: column nowrap;
+    gap: var(--spacing-gutter-minimum);
+}
+
+
+@media (max-width: 600px) {
+    .main-content-list {
+      grid-template-columns: repeat(auto-fit, minmax(100%, 1fr));
+    }
+  }
+  
+
 .message {
     padding: 1rem;
     border-radius: 4px;
@@ -337,3 +351,4 @@ h1, h2, h3, h4, h5, h6 {
     background: var(--color-debug-light);
     color: var(--color-debug-dark);
 }
+
