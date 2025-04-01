@@ -79,17 +79,6 @@ class RegisterForm(forms.ModelForm):
             }
         }
     
-    def clean_password(self):
-        data = self.cleaned_data.get('password')
-
-        if 'atenção' in data:
-            raise ValidationError(
-                'Não digite "atenção" no campo password',
-                code='invalid',
-                params={'value':'atenção'}
-            )
-        return data
-
     def clean(self):
         cleaned_data = super().clean()
         password = cleaned_data.get('password')
