@@ -8,7 +8,7 @@
     </div>
 
     <div class="main-content container">
-        <form action="" method="POST">
+        <form action="{% url 'authors:create' %}" method="POST">
             {% csrf_token %}
             <div class="form-content form-content-grid">
                 {% for field in form %}
@@ -18,12 +18,14 @@
                         {% if field.help_text %}
                             <p class="help-text">{{field.help_text }}</p>
                         {% endif %}
+                        {{field.errors }}
                     </div>
                 {% endfor %}
-                {{field.errors }}
              </div>
-             <div class="form-group">
-                <button type="submit">Send</button>
+             <div class="form-content form-content-grid">
+                 <div class="form-group">
+                    <button type="submit">Send</button>
+                 </div>
              </div>
         </form>
     </div>
