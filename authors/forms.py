@@ -35,12 +35,13 @@ class RegisterForm(forms.ModelForm):
          add_placeholder(self.fields['password2'], 'Repeat your password')
 
     password2 = forms.CharField(
-        required=True,
         widget=forms.PasswordInput(),
-        label='Password2'
+        label='Password2',
+        error_messages={
+        'required': 'Please, repeat your password'
+    },
      )
     password = forms.CharField(
-        required=True,
         error_messages={
              'required': 'Password must not be empty'
         },
