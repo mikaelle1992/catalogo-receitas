@@ -395,7 +395,7 @@ color: var(--color-error-dark);
 
 
 .inline-form {
-display: inline;
+ display: inline;
 }
 
 .plaintext-button {
@@ -405,4 +405,8 @@ display: inline;
     cursor: pointer;
     color: var(--color-primary);
     font-size: 1.6rem;
+}
+
+.login-message{
+    margin: 1rem 0;
 }
