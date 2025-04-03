@@ -100,6 +100,8 @@ def dashboard(request):
        )
 
 
+
+
 @login_required(login_url='authors:login', redirect_field_name='next')
 def dashboard_edit_recipe(request, id):
    recipe = Recipe.objects.filter(
