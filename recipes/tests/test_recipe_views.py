@@ -7,11 +7,11 @@ from utils.recipes.factory import make_recipe
 class RecipeViewsTest(TestCase):
     def test_recipe_home_view_function_is_correct(self):
         view =  resolve(reverse('recipes:home'))
-        self.assertIs(view.func, views.home)
+        self.assertIs(view.func.view_class, views.RecipeListViewHome)
     
     def test_recipe_category_view_function_is_correct(self):
         view =  resolve(reverse('recipes:category', kwargs={'category_id':1}))
-        self.assertIs(view.func, views.category)
+        self.assertIs(view.func.view_class, views.RecipeListViewCatecory)
 
     def test_recipe_detail_view_function_is_correct(self):
         view =  resolve(reverse('recipes:recipe', kwargs={'id':1}))
@@ -43,7 +43,7 @@ class RecipeViewsTest(TestCase):
 
     def test_recipe_search_view_function_is_correct(self):
         view =  resolve(reverse('recipes:search'))
-        self.assertIs(view.func, views.search)
+        self.assertIs(view.func.view_class, views.RecipeListViewSearch)
 
     def test_recipe_search_loads_correct_template(self):
         response = self.client.get(reverse('recipes:search')+'?q=teste') 
