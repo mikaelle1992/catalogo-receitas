@@ -17,6 +17,15 @@ from django.utils.decorators import method_decorator
      name='dispatch'
 )
 class DashboardRecipe(View):
+    def __init__(self, *args, **kwargs):
+         super().__init__(*args, **kwargs)
+ 
+    def setup(self, *args, **kwargs):
+         return super().setup(*args, **kwargs)
+ 
+    def dispatch(self, *args, **kwargs):
+         return super().dispatch(*args, **kwargs)
+    
     def get_id(self, id=None):
         recipe = None
 
