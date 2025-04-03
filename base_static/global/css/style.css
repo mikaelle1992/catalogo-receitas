@@ -430,4 +430,9 @@ margin: 1rem 0;
     text-decoration: none;
     color: var(--color-primary-hover)
 }
+
+
+.left {
+    text-align: left;
+  }
   
