@@ -2,13 +2,13 @@ from django.http import Http404
 from django.shortcuts import redirect, render
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 
+from authors.forms import LoginForm, RegisterForm
 from authors.forms.recipe_form import AuthorRecipeForm
 from recipes.models import Recipe
 # Create your views here.
-from .forms import LoginForm, RegisterForm
-from django.contrib.auth.decorators import login_required
 
 def register_view(request):
    register_form_data = request.session.get('register_form_data', None)
