@@ -10,6 +10,7 @@ urlpatterns = [
     path('login/create/', views.login_create, name='login_create'),
     path('logout/', views.logout_view, name='logout'),
     path('dashboard/', views.dashboard, name='dashboard'),
+    path('dashboard/recipe/create/', views.dashboard_create_recipe, name="dashboard_create_recipe"),      
     path('dashboard/recipe/<int:id>/edit', views.dashboard_edit_recipe,\
           name='dashboard_edit_recipe'),
 ]
