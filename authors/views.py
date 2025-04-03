@@ -102,38 +102,38 @@ def dashboard(request):
 
 @login_required(login_url='authors:login', redirect_field_name='next')
 def dashboard_edit_recipe(request, id):
-      recipe = Recipe.objects.filter(
-        is_published=False,
-        author=request.user,
-        id=id
-        ).first()
-      
-      if not recipe:
-         raise Http404()
-      
-      form = AuthorRecipeForm(
-         data= request.POST or None,
-         files=request.FILES or None,
-         instance=recipe
+   recipe = Recipe.objects.filter(
+      is_published=False,
+      author=request.user,
+      id=id
+      ).first()
+   
+   if not recipe:
+      raise Http404()
+   
+   form = AuthorRecipeForm(
+      data= request.POST or None,
+      files=request.FILES or None,
+      instance=recipe
 
-      )
+   )
 
-      if form.is_valid():
-         recipe = form.save(commit=False)
+   if form.is_valid():
+      recipe = form.save(commit=False)
 
-         recipe.author = request.user
-         recipe.preparation_steps_is_html = False
-         recipe.is_published = False
+      recipe.author = request.user
+      recipe.preparation_steps_is_html = False
+      recipe.is_published = False
 
-         recipe.save()
+      recipe.save()
 
-         messages.success(request, 'Your recipes has been saved.')
-         return redirect(reverse('authors:dashboard_edit_recipe', args=(id,)))
+      messages.success(request, 'Your recipes has been saved.')
+      return redirect(reverse('authors:dashboard_edit_recipe', args=(id,)))
 
-      return render(request,'authors/pages/dashboard.html',
-                  context={
-               'form':form,
-            })
+   return render(request,'authors/pages/dashboard.html',
+               context={
+            'form':form,
+         })
 
 
 @login_required(login_url='authors:login', redirect_field_name='next')
@@ -164,3 +164,25 @@ def dashboard_create_recipe(request):
              'form_action': reverse('authors:dashboard_create_recipe')
          }
      )
+@login_required(login_url='authors:login', redirect_field_name='next')
+def dashboard_delete_recipe(request):
+   if not request.POST:
+      raise Http404()
+
+   POST = request.POST
+   id = POST.get('id')
+
+   recipe = Recipe.objects.filter(
+      is_published=False,
+      author=request.user,
+      id=id
+      ).first()
+   
+   if not recipe:
+      raise Http404()
+
+   recipe.delete()
+
+   messages.success(request, 'Deleted sucessfully.')
+   return redirect(reverse('authors:dashboard'))
+
