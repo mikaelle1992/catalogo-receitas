@@ -1,5 +1,6 @@
 asgiref==3.8.1
 Django==5.1.6
+django-debug-toolbar==5.1.0
 exceptiongroup==1.2.2
 Faker==37.0.2
 iniconfig==2.1.0
