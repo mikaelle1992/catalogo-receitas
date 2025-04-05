@@ -1,14 +1,15 @@
 from django.http import Http404
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render
 from django.db.models import Q
 from django.views.generic import ListView, DetailView
 from django.http import JsonResponse
 from django.forms.models import model_to_dict
 from utils.pagination import make_pagination
-from .models import Recipe
+from ..models import Recipe
 import os
 
 PER_PAGE = int(os.environ.get('PER_PAGE', 4))
+
 
 
 # Create your views here.
@@ -26,6 +27,7 @@ class RecipeListViewBase(ListView):
             is_published=True
         )
         qs= qs.select_related('author','category')
+        # quando for muitos p/ muitos usar o prefetch_related
         return qs
         
     def get_context_data(self, *args, **kwargs):
@@ -82,7 +84,9 @@ class RecipeListViewSearch(RecipeListViewBase):
                 Q(title__icontains=search_term) |
                 Q(description__icontains=search_term),
             )
-        )
+        )[:20]
+        # colocar limite no filter '[:10]'
+        #ler documentação https://docs.djangoproject.com/pt-br/4.0/ref/models/querysets/#operators-that-return-new-querysets
         return qs 
     
 

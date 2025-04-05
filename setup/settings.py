@@ -45,7 +45,8 @@ DJANGO_APPS =[
 
 #app de terceiros
 THIRD_PARTY_APPS =[
-   'debug_toolbar'
+   'debug_toolbar',
+   'rest_framework'
 ]
 
 #as minhas apps

@@ -1,21 +1,21 @@
 from django.test import TestCase
 from django.urls import reverse, resolve
-from recipes import views 
+from recipes.views import site 
 from utils.recipes.factory import make_recipe
 
 
 class RecipeViewsTest(TestCase):
     def test_recipe_home_view_function_is_correct(self):
         view =  resolve(reverse('recipes:home'))
-        self.assertIs(view.func.view_class, views.RecipeListViewHome)
+        self.assertIs(view.func.view_class, site.RecipeListViewHome)
     
     def test_recipe_category_view_function_is_correct(self):
         view =  resolve(reverse('recipes:category', kwargs={'category_id':1}))
-        self.assertIs(view.func.view_class, views.RecipeListViewCatecory)
+        self.assertIs(view.func.view_class, site.RecipeListViewCatecory)
 
     def test_recipe_detail_view_function_is_correct(self):
-        view =  resolve(reverse('recipes:recipe', kwargs={'id':1}))
-        self.assertIs(view.func.view_class, views.RecipeDetail)
+        view =  resolve(reverse('recipes:recipe', kwargs={'pk':1}))
+        self.assertIs(view.func.view_class, site.RecipeDetail)
     
     def test_recipe_home_view_return_status_code_200_ok(self):
         response = self.client.get(reverse('recipes:home'))
@@ -43,7 +43,7 @@ class RecipeViewsTest(TestCase):
 
     def test_recipe_search_view_function_is_correct(self):
         view =  resolve(reverse('recipes:search'))
-        self.assertIs(view.func.view_class, views.RecipeListViewSearch)
+        self.assertIs(view.func.view_class, site.RecipeListViewSearch)
 
     def test_recipe_search_loads_correct_template(self):
         response = self.client.get(reverse('recipes:search')+'?q=teste') 
