@@ -13,7 +13,8 @@ class RecipeManager(models.Manager):
     def get_published(self):
         return self.filter(
             is_published=True
-        )
+        ).select_related('author','category') # usa o 'author'e'category' pois são as PK
+    
 class Recipe(models.Model):
     objects = RecipeManager()
     title = models.CharField(max_length=65)

@@ -13,7 +13,7 @@ def recipe_api_list(request):
 @api_view()
 def recipe_api_detail(request, pk):
     recipe = get_object_or_404(
-        Recipe.objects.filter(pk=pk)
+        Recipe.objects.filter(pk=pk).select_related('author','category')
     )
     serializer = RecipeSerializer(instance=recipe, many=False)
     return Response(serializer.data)
