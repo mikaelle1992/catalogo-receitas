@@ -17,6 +17,8 @@ urlpatterns = [
     # path('recipes/search/', views.RecipeListViewSearch.as_view(), name="search"),
     # path('recipes/category/<int:category_id>/', views.RecipeListViewCatecory.as_view(), name="category"),
 
-    path('recipes/api/v2/',views.recipe_api_list, name='recipe_api_list',
-     )
+    # api rest
+    path('recipes/api/v2/',views.recipe_api_list, name='recipe_api_list'),
+    path('recipes/api/v2/<int:pk>/', views.recipe_api_detail, name="recipe_detail_api_v2"),
+
 ]
