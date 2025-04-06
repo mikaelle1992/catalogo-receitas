@@ -52,7 +52,8 @@ THIRD_PARTY_APPS =[
 #as minhas apps
 LOCAL_APPS = [
     'recipes.apps.RecipesConfig',
-    'authors.apps.AuthorsConfig'
+    'authors.apps.AuthorsConfig',
+    'tag.apps.TagConfig',
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
