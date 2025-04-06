@@ -1,5 +1,4 @@
 from django.contrib import admin
-from recipes.admin import TagInline
 from tag.models import Tag
 
 # Register your models here.
@@ -14,7 +13,3 @@ class TagAdmin(admin.ModelAdmin):
     prepopulated_fields = {
         "slug": ('name',)
     }
-
-    inlines = [
-            TagInline,
-        ]
