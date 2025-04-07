@@ -43,7 +43,6 @@ class AuthorRecipeValidator:
     
     def clean_preparation_time(self):
         field_name = 'preparation_time'
-        print("aqui", self.data )
         field_value = self.data.get(field_name)
 
 
