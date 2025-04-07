@@ -22,5 +22,6 @@ urlpatterns = [
     # api rest
     path('recipes/api/v2/',views.recipe_api_list, name='recipe_api_list'),
     path('recipes/api/v2/<int:pk>/', views.recipe_api_detail, name="recipe_detail_api_v2"),
+    path('recipes/api/v2/tag/<int:pk>', views.recipe_api_tag, name="recipe_tag_api_v2"),
 
 ]
