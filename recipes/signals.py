@@ -7,7 +7,7 @@ def delete_cover(instance):
     try:
         os.remove(instance.cover.path)
     except (ValueError, FileNotFoundError) as e:
-        print("erro"+ e)
+        ...
 
 @receiver(pre_delete, sender=Recipe)
 def recipe_cover_delete(sender, instance, *args, **kwargs):
