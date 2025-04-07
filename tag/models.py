@@ -9,8 +9,6 @@ class Tag(models.Model):
     slug = models.SlugField(unique=True)
 
 
-
-
     def save(self, *args, **kwargs):
         if not self.slug:
             rand_letters = ''.join(
