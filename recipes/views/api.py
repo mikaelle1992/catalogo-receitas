@@ -6,15 +6,16 @@ from recipes.models import Recipe
 from rest_framework import status
 from tag.models import Tag
 from tag.serializers import TagSerializer
+from rest_framework.views import APIView
 
-@api_view(http_method_names=['get', 'post'])
-def recipe_api_list(request):
-    if request.method == 'GET':
+
+class RecipeAPIv2List(APIView):
+    def get(self, request):
         recipes = Recipe.objects.get_published()[:10]
         serializer = RecipeSerializer(instance=recipes, many=True, context={'request':request})
         return Response(serializer.data)
-
-    elif request.method == 'POST':
+    
+    def post(self, request):
         serializer = RecipeSerializer(
             data=request.data,
             context={'request': request},
@@ -23,20 +24,23 @@ def recipe_api_list(request):
         serializer.save()
         return Response(
             serializer.data, 
-            status=status.HTTP_201_CREATED)
-        
-
-@api_view(http_method_names=['get', 'patch', 'delete'])
-def recipe_api_detail(request, pk):
-    recipe = get_object_or_404(
-        Recipe.objects.filter(pk=pk).select_related('author','category')
+            status=status.HTTP_201_CREATED
         )
+
+class RecipeAPIv2Detail(APIView):
+    def get_recipe(self, pk):
+        recipe = get_object_or_404(
+            Recipe.objects.filter(pk=pk).select_related('author','category')
+            )
+        return recipe
     
-    if request.method == 'GET':
-        # many=False, porque é só uma recipe
+    def get(self, request, pk):
+        recipe = self.get_recipe(pk)
         serializer = RecipeSerializer(instance=recipe, many=False, context={'request':request})
         return Response(serializer.data)
-    elif request.method == 'PATCH':
+    
+    def patch(self, request, pk):
+        recipe = self.get_recipe(pk)
         serializer = RecipeSerializer(
             instance=recipe,
             data=request.data,
@@ -47,11 +51,12 @@ def recipe_api_detail(request, pk):
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(serializer.data)
-
-    elif request.method == 'DELETE':
+    
+    def delete(self,request, pk):
+        recipe = self.get_recipe(pk)
         recipe.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
 
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 @api_view()
 def recipe_api_tag(request, pk):

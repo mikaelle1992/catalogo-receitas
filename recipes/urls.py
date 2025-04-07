@@ -16,12 +16,11 @@ urlpatterns = [
 
     path('api/v1/', views.RecipeListViewHomeApi.as_view(), name="home_api"),
     path('api/v1/recipes/<int:pk>/', views.RecipeDetailApi.as_view(), name="recipe_detail_api"),
-    # path('recipes/search/', views.RecipeListViewSearch.as_view(), name="search"),
-    # path('recipes/category/<int:category_id>/', views.RecipeListViewCatecory.as_view(), name="category"),
+
 
     # api rest
-    path('recipes/api/v2/',views.recipe_api_list, name='recipe_api_list'),
-    path('recipes/api/v2/<int:pk>/', views.recipe_api_detail, name="recipe_detail_api_v2"),
+    path('recipes/api/v2/',views.RecipeAPIv2List.as_view(), name='recipe_api_list'),
+    path('recipes/api/v2/<int:pk>/', views.RecipeAPIv2Detail.as_view(), name="recipe_detail_api_v2"),
     path('recipes/api/v2/tag/<int:pk>', views.recipe_api_tag, name="recipe_tag_api_v2"),
 
 ]
