@@ -1,5 +1,7 @@
 from collections import defaultdict
 import os
+from random import SystemRandom
+import string
 from django.contrib.auth.models import User
 from django.db import models
 from django.forms import ValidationError
@@ -35,7 +37,7 @@ class Recipe(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     is_published = models.BooleanField(default=False)
-    cover = models.ImageField(upload_to='recipes/covers/%Y/%m/%d/')
+    cover = models.ImageField(upload_to='recipes/covers/%Y/%m/%d/', blank=True, default='')
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null= True)
     author = models.ForeignKey(User, on_delete=models.SET_NULL, null= True, blank=True,
         default=None)
@@ -70,8 +72,13 @@ class Recipe(models.Model):
         )
     def save(self, *args, **kwargs):
         if not self.slug:
-            slug = f'{slugify(self.title)}'
-            self.slug = slug
+             rand_letters = ''.join(
+                 SystemRandom().choices(
+                     string.ascii_letters + string.digits,
+                     k=5,
+                 )
+             )
+             self.slug = slugify(f'{self.title}-{rand_letters}')
         saved = super().save(*args, **kwargs)
 
         if self.cover:
