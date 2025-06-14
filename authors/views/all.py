@@ -2,13 +2,13 @@ from django.http import Http404
 from django.shortcuts import redirect, render
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 
+from authors.forms import LoginForm, RegisterForm
 from authors.forms.recipe_form import AuthorRecipeForm
 from recipes.models import Recipe
 # Create your views here.
-from .forms import LoginForm, RegisterForm
-from django.contrib.auth.decorators import login_required
 
 def register_view(request):
    register_form_data = request.session.get('register_form_data', None)
@@ -76,12 +76,15 @@ def login_create(request):
 @login_required(login_url='authors:login', redirect_field_name='next')
 def logout_view(request):
    if not request.POST:
+      messages.error(request, 'Invalid logout request')
       return redirect(reverse('authors:login'))
    
 
    if request.POST.get('username') != request.user.username:
+      messages.error(request, 'Invalid logout request')
       return redirect(reverse('authors:login'))
 
+   messages.success(request, 'Logged out successfully')
    logout(request)
    return redirect(reverse('authors:login'))
 
@@ -100,24 +103,5 @@ def dashboard(request):
        )
 
 
-@login_required(login_url='authors:login', redirect_field_name='next')
-def dashboard_edit_recipe(request, id):
-      recipe = Recipe.objects.filter(
-        is_published=False,
-        author=request.user,
-        id=id
-        ).first()
-      
-      if not recipe:
-         raise Http404()
-      
-      form = AuthorRecipeForm(
-         data= request.POST or None,
-         instance=recipe
 
-      )
 
-      return render(request,'authors/pages/dashboard_recipe.html',
-                  context={
-               'form':form,
-            })

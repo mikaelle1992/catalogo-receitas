@@ -1,10 +1,12 @@
-
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     {% include 'global/partials/head.html' %}
     <title>{% block title %}{% endblock title %}</title>
 </head>
+{% include 'global/partials/menu.html' %}
+
 <body>
     {% include 'global/partials/header.html' %}
     {% include 'global/partials/search.html' %}
@@ -14,5 +16,6 @@
         {% include 'global/partials/pagination.html' %}
     </main>
     {% include 'global/partials/footer.html' %}
+    <script src="{% static 'global/js/scripts.js' %}"></script>
 </body>
 </html>

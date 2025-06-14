@@ -45,19 +45,22 @@ DJANGO_APPS =[
 
 #app de terceiros
 THIRD_PARTY_APPS =[
-   
+   'debug_toolbar',
+   'rest_framework'
 ]
 
 #as minhas apps
 LOCAL_APPS = [
     'recipes.apps.RecipesConfig',
-    'authors.apps.AuthorsConfig'
+    'authors.apps.AuthorsConfig',
+    'tag.apps.TagConfig',
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -134,7 +137,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     BASE_DIR / 'base_static',
 ]
@@ -142,7 +145,7 @@ STATICFILES_DIRS = [
 STATIC_ROOT = BASE_DIR / 'static'
 
 MEDIA_URL =  '/media/'
-MEDIA_ROOT = BASE_DIR /'media'
+MEDIA_ROOT = BASE_DIR / 'media'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
@@ -156,3 +159,11 @@ MESSAGE_TAGS ={
     constants.INFO:'message-info',
     constants.WARNING:'message-warning'
 }
+
+
+# Django Debug Toolbar
+INTERNAL_IPS = [
+    # ...
+    '127.0.0.1',
+    # ...
+]

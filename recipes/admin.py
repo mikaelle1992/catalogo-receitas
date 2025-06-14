@@ -6,8 +6,6 @@ from .models import Category, Recipe
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
     ...
-
-
 @admin.register(Recipe)
 class RecipeAdmin(admin.ModelAdmin):
     list_display = ['id', 'title', 'created_at', 'is_published', 'author']
@@ -21,3 +19,5 @@ class RecipeAdmin(admin.ModelAdmin):
     prepopulated_fields = {
         "slug": ('title',)
     }
+    autocomplete_fields= 'tags',
+
